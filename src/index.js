@@ -7,13 +7,37 @@
 import observer from "@cocreate/observer";
 import localStorage from "@cocreate/local-storage";
 
-const mediaRangeNames = ["xs", "sm", "md", "lg", "xl"];
+/**
+ * @typedef {('xxxs'|'xxs'|'xs'|'sm'|'md'|'lg'|'xl'|'xxl')} MediaRangeName
+ * * Defines a comprehensive set of responsive screen size breakpoints in pixels (or device-independent pixels).
+ * The ranges are inclusive on the minimum width and exclusive on the maximum width (max-width - 1).
+ * '0' in the second position of a range signifies 'and up' (e.g., [1401, 0] means >= 1401px).
+ *
+ * Tiers:
+ * - xxxs: Smallest Smartwatches (0px to 191px)
+ * - xxs: Medium-Large Smartwatches (192px to 319px)
+ * - xs: Smallest Smartphones (320px to 575px)
+ * - sm: Landscape Phones & Small Tablets (576px to 768px)
+ * - md: Tablets (769px to 992px)
+ * - lg: Small Desktops & Laptops (993px to 1200px)
+ * - xl: Standard Desktops (1201px to 1400px)
+ * - xxl: Large Monitors, TVs (1401px and up)
+ * * @type {MediaRangeName[]}
+ */
+const mediaRangeNames = ["xxxs", "xxs", "xs", "sm", "md", "lg", "xl", "xxl"];
+
+/**
+ * @type {Object.<MediaRangeName, [number, number]>}
+ */
 const ranges = {
-	xs: [0, 575],
-	sm: [576, 768],
-	md: [769, 992],
-	lg: [993, 1200],
-	xl: [1201, 0]
+    xxxs: [0, 191], 
+    xxs: [192, 319], 
+    xs: [320, 575], 
+    sm: [576, 768], 
+    md: [769, 992], 
+    lg: [993, 1200], 
+    xl: [1201, 1400], 
+    xxl: [1401, 0]
 };
 
 // Rule III.5.a: Magic Aliases (used by parseMediaQueryString)
@@ -24,6 +48,47 @@ const mediaFeatureAliases = {
 	portrait: "orientation",
 	print: "print",
 	screen: "screen"
+};
+
+/**
+ * @typedef {('h-xxxs'|'h-xxs'|'h-xs'|'h-sm'|'h-md'|'h-lg'|'h-xl'|'h-xxl')} HeightRangeName
+ *
+ * Defines a comprehensive set of responsive screen size breakpoints for the 
+ * vertical (height) dimension in pixels (or device-independent pixels).
+ * The numerical values mirror the width breakpoints to maintain a unified 
+ * design scale across orientation flips (e.g., a 769px screen is 'md' size, 
+ * whether it's width or height).
+ *
+ * The ranges are inclusive on the minimum and exclusive on the maximum (max-1).
+ * '0' in the second position signifies 'and up'.
+ *
+ * Tiers:
+ * - h-xxxs: Smallest Smartwatches (0px to 191px)
+ * - h-xxs: Medium-Large Smartwatches (192px to 319px)
+ * - h-xs: Smallest Phones Landscape / Extreme Condensation (320px to 575px)
+ * - h-sm: Landscape Phones & Small Tablets (576px to 768px)
+ * - h-md: Tablets / Comfortable Vertical Space (769px to 992px)
+ * - h-lg: Small Desktops / Ample Vertical Space (993px to 1200px)
+ * - h-xl: Standard Desktops (1201px to 1400px)
+ * - h-xxl: Large Monitors, TVs (1401px and up)
+ * * NOTE: These are typically used with 'max-height' CSS media queries to trigger 
+ * condensation (removing complexity as vertical space runs out).
+ */
+const heightRangeNames = ["h-xxxs", "h-xxs", "h-xs", "h-sm", "h-md", "h-lg", "h-xl", "h-xxl"];
+
+/**
+ * The Height Breakpoint Ranges.
+ * @type {Object.<HeightRangeName, [number, number]>}
+ */
+const heightRanges = {
+    'h-xxxs': [0, 191], 
+    'h-xxs': [192, 319], 
+    'h-xs': [320, 575], 
+    'h-sm': [576, 768], 
+    'h-md': [769, 992], 
+    'h-lg': [993, 1200], 
+    'h-xl': [1201, 1400], 
+    'h-xxl': [1401, 0]
 };
 
 // classNameList will now store the directClassName for className attribute rules
@@ -270,11 +335,30 @@ function parseMediaQueryString(mediaQueryPart) {
 		if (mediaRangeNames.includes(featStr)) {
 			const [min, max] = ranges[featStr];
 			const rangeConditions = [];
-			if (min > 0 || featStr === "xs") {
+			if (min > 0 || featStr === "xxxs") {
 				rangeConditions.push(`(min-width: ${min}px)`);
 			}
 			if (max > 0) {
 				rangeConditions.push(`(max-width: ${max}px)`);
+			}
+			if (rangeConditions.length > 0) {
+				if (rangeConditions.length === 1) {
+					conditions.push(rangeConditions[0]);
+				} else if (rangeConditions.length === 2) {
+					conditions.push(rangeConditions.join(" and "));
+				}
+			}
+			continue;
+		}
+
+		if (heightRangeNames.includes(featStr)) {
+			const [min, max] = heightRanges[featStr];
+			const rangeConditions = [];
+			if (min > 0 || featStr === "h-xxxs") {
+				rangeConditions.push(`(min-height: ${min}px)`);
+			}
+			if (max > 0) {
+				rangeConditions.push(`(max-height: ${max}px)`);
 			}
 			if (rangeConditions.length > 0) {
 				if (rangeConditions.length === 1) {
