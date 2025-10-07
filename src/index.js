@@ -308,93 +308,159 @@ function initElement(element) {
 // Helper function to parse media query string from class name part (e.g., "@sm&dark")
 function parseMediaQueryString(mediaQueryPart) {
 	if (!mediaQueryPart.startsWith("@")) return null;
-	const actualGroup = mediaQueryPart.substring(1);
+	let currentQuery = mediaQueryPart.substring(1);
 
-	const featuresRaw = actualGroup.split("&");
-	const conditions = [];
-
-	for (let featStr of featuresRaw) {
+	const parseFeature = (featStr) => {
 		featStr = featStr.trim();
-		if (!featStr) continue;
+		if (!featStr) return null;
+
+		let isNot = false;
+		if (featStr.startsWith("!")) {
+			isNot = true;
+			featStr = featStr.substring(1);
+		}
+
+		let condition;
 
 		if (featStr.startsWith("(") && featStr.endsWith(")")) {
-			conditions.push(featStr.replace(/_/g, " "));
-			continue;
-		}
-
-		if (mediaFeatureAliases[featStr]) {
+			condition = featStr.replace(/_/g, " ");
+		} else if (mediaFeatureAliases[featStr]) {
 			const mappedFeature = mediaFeatureAliases[featStr];
-			if (mappedFeature === "print" || mappedFeature === "screen") {
-				conditions.push(mappedFeature);
-			} else {
-				conditions.push(`(${mappedFeature}: ${featStr})`);
-			}
-			continue;
-		}
-
-		if (mediaRangeNames.includes(featStr)) {
+			condition = (mappedFeature === "print" || mappedFeature === "screen")
+				? mappedFeature
+				: `(${mappedFeature}: ${featStr})`;
+		} else if (mediaRangeNames.includes(featStr)) {
 			const [min, max] = ranges[featStr];
 			const rangeConditions = [];
-			if (min > 0 || featStr === "xxxs") {
-				rangeConditions.push(`(min-width: ${min}px)`);
-			}
-			if (max > 0) {
-				rangeConditions.push(`(max-width: ${max}px)`);
-			}
-			if (rangeConditions.length > 0) {
-				if (rangeConditions.length === 1) {
-					conditions.push(rangeConditions[0]);
-				} else if (rangeConditions.length === 2) {
-					conditions.push(rangeConditions.join(" and "));
-				}
-			}
-			continue;
-		}
-
-		if (heightRangeNames.includes(featStr)) {
+			if (min > 0 || featStr === "xxxs") rangeConditions.push(`(min-width: ${min}px)`);
+			if (max > 0) rangeConditions.push(`(max-width: ${max}px)`);
+			condition = rangeConditions.join(" and ");
+		} else if (heightRangeNames.includes(featStr)) {
 			const [min, max] = heightRanges[featStr];
 			const rangeConditions = [];
-			if (min > 0 || featStr === "h-xxxs") {
-				rangeConditions.push(`(min-height: ${min}px)`);
-			}
-			if (max > 0) {
-				rangeConditions.push(`(max-height: ${max}px)`);
-			}
-			if (rangeConditions.length > 0) {
-				if (rangeConditions.length === 1) {
-					conditions.push(rangeConditions[0]);
-				} else if (rangeConditions.length === 2) {
-					conditions.push(rangeConditions.join(" and "));
-				}
-			}
-			continue;
-		}
-
-		if (/^\d+(\.\d+)?\D+$/.test(featStr) && !featStr.includes(":")) {
-			conditions.push(`(max-width: ${featStr.replace(/_/g, " ")})`);
-			continue;
-		}
-
-		if (featStr.includes(":")) {
+			if (min > 0 || featStr === "h-xxxs") rangeConditions.push(`(min-height: ${min}px)`);
+			if (max > 0) rangeConditions.push(`(max-height: ${max}px)`);
+			condition = rangeConditions.join(" and ");
+		} else if (/^\d+(\.\d+)?\D+$/.test(featStr) && !featStr.includes(":")) {
+			condition = `(max-width: ${featStr.replace(/_/g, " ")})`;
+		} else if (featStr.includes(":")) {
 			const [featureName, ...featureValueParts] = featStr.split(":");
 			const featureValue = featureValueParts.join(":").replace(/_/g, " ");
-			conditions.push(`(${featureName.trim()}: ${featureValue.trim()})`);
-			continue;
+			condition = `(${featureName.trim()}: ${featureValue.trim()})`;
+		} else {
+			condition = featStr.replace(/_/g, " ");
 		}
-		conditions.push(featStr.replace(/_/g, " "));
+
+		if (condition) {
+			return isNot ? `not ${condition}` : condition;
+		}
+		return null;
+	};
+
+	const consolidateAndGroup = (andGroup) => {
+		let ranges = {
+			minWidth: Infinity,
+			maxWidth: 0,
+			minHeight: Infinity,
+			maxHeight: 0,
+		};
+		const otherConditions = [];
+		const rangeRegex = /\((min|max)-(width|height): *(\d+(\.\d+)?)px\)/;
+
+		for (let condition of andGroup) {
+			const parts = condition.split(" and ");
+			let isRangeOnlyCondition = true;
+			for (let part of parts) {
+				if (!rangeRegex.test(part)) {
+					isRangeOnlyCondition = false;
+					break;
+				}
+			}
+
+			if (isRangeOnlyCondition) {
+				for (let part of parts) {
+					const match = part.match(rangeRegex);
+					if (match) {
+						const [, type, dimension, value] = match;
+						const numValue = parseFloat(value);
+						if (type === "min" && dimension === "width") {
+							ranges.minWidth = Math.min(ranges.minWidth, numValue);
+						} else if (type === "max" && dimension === "width") {
+							ranges.maxWidth = Math.max(ranges.maxWidth, numValue);
+						} else if (type === "min" && dimension === "height") {
+							ranges.minHeight = Math.min(ranges.minHeight, numValue);
+						} else if (type === "max" && dimension === "height") {
+							ranges.maxHeight = Math.max(ranges.maxHeight, numValue);
+						}
+					}
+				}
+			} else {
+				// If the condition block contains non-range parts, add it as is.
+				if (!otherConditions.includes(condition)) {
+					otherConditions.push(condition);
+				}
+			}
+		}
+
+		const consolidated = [...otherConditions];
+		if (ranges.minWidth !== Infinity && ranges.minWidth > 0) consolidated.push(`(min-width: ${ranges.minWidth}px)`);
+		if (ranges.maxWidth > 0) consolidated.push(`(max-width: ${ranges.maxWidth}px)`);
+		if (ranges.minHeight !== Infinity && ranges.minHeight > 0) consolidated.push(`(min-height: ${ranges.minHeight}px)`);
+		if (ranges.maxHeight > 0) consolidated.push(`(max-height: ${ranges.maxHeight}px)`);
+
+		return consolidated.join(" and ");
+	};
+
+	const tokens = [];
+	const operatorRegex = /([&,])/;
+
+	while (currentQuery.length > 0) {
+		const match = currentQuery.match(operatorRegex);
+		if (match) {
+			const index = match.index;
+			const feature = currentQuery.substring(0, index);
+			const operator = match[0];
+			if (feature) tokens.push(feature);
+			tokens.push(operator);
+			currentQuery = currentQuery.substring(index + 1);
+		} else {
+			tokens.push(currentQuery);
+			break;
+		}
 	}
 
-	if (conditions.length > 0) {
-		return conditions.join(" and ");
+	const orGroups = [];
+	let currentAndGroup = [];
+
+	for (const token of tokens) {
+		if (token === '&') {
+			continue;
+		}
+		if (token === ',') {
+			if (currentAndGroup.length > 0) {
+				orGroups.push(consolidateAndGroup(currentAndGroup));
+				currentAndGroup = [];
+			}
+		} else {
+			const condition = parseFeature(token);
+			if (condition) {
+				currentAndGroup.push(condition);
+			}
+		}
 	}
-	return null;
+
+	if (currentAndGroup.length > 0) {
+		orGroups.push(consolidateAndGroup(currentAndGroup));
+	}
+
+	return orGroups.join(', ');
 }
 
 function parseClassList(classList) {
 	const parsedDetails = [];
 	// Iterate through each class name on an element
 	for (let className of classList) {
-		// Skip if the class doesn't contain ':'
+		// Skip if the class doesn't contain ':''
 		if (!className.includes(":")) {
 			continue;
 		}
