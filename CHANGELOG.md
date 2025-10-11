@@ -1,3 +1,11 @@
+# [1.17.0](https://github.com/CoCreate-app/CoCreate-css-parser/compare/v1.16.3...v1.17.0) (2025-10-11)
+
+
+### Features
+
+* enhance media query parsing to support height-based breakpoints and improve condition handling ([41e919d](https://github.com/CoCreate-app/CoCreate-css-parser/commit/41e919db3b6bb24f21b30ddd575f342637b8dc38))
+* expand media query support with height breakpoints and enhance range definitions ([17bf842](https://github.com/CoCreate-app/CoCreate-css-parser/commit/17bf842652deb928dde3f8a59fcb10f9ad12c4f7))
+
 ## [1.16.3](https://github.com/CoCreate-app/CoCreate-css-parser/compare/v1.16.2...v1.16.3) (2025-05-01)
 
 
