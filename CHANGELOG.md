@@ -1,3 +1,11 @@
+## [1.17.1](https://github.com/CoCreate-app/CoCreate-css-parser/compare/v1.17.0...v1.17.1) (2026-01-15)
+
+
+### Bug Fixes
+
+*  media query attributes bug fixed ([7562dd3](https://github.com/CoCreate-app/CoCreate-css-parser/commit/7562dd34d7e2688abbf9863b8aba0995003c7b2f))
+* update worklow ([0ae3c34](https://github.com/CoCreate-app/CoCreate-css-parser/commit/0ae3c34637e1e5ea2440695b8337516b72e8931b))
+
 # [1.17.0](https://github.com/CoCreate-app/CoCreate-css-parser/compare/v1.16.3...v1.17.0) (2025-10-11)
 
 
