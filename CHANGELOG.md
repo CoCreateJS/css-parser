@@ -1,3 +1,12 @@
+## [1.17.2](https://github.com/CoCreate-app/CoCreate-css-parser/compare/v1.17.1...v1.17.2) (2026-07-11)
+
+
+### Bug Fixes
+
+* bump package versions ([d5f5698](https://github.com/CoCreate-app/CoCreate-css-parser/commit/d5f56983435518fd552a4515e98b178a18773df5))
+* removed post install and add add packages to apprved list ([255ca5a](https://github.com/CoCreate-app/CoCreate-css-parser/commit/255ca5ab2ba9d7501dbb8110d4ce30e9477202cd))
+* semantic version handling ([b4b05cf](https://github.com/CoCreate-app/CoCreate-css-parser/commit/b4b05cfa92cbe31352ae0a4d627edf92cdbaec91))
+
 ## [1.17.1](https://github.com/CoCreate-app/CoCreate-css-parser/compare/v1.17.0...v1.17.1) (2026-01-15)
 
 
