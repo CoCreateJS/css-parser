@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/CoCreate-app/CoCreate-css-parser/compare/v1.17.2...v1.18.0) (2026-07-17)
+
+
+### Features
+
+* update automated workflow and release configuration for improved semantic release handling ([dbfd31a](https://github.com/CoCreate-app/CoCreate-css-parser/commit/dbfd31a131de79afa42abcd27ad544e8be00a05d))
+
 ## [1.17.2](https://github.com/CoCreate-app/CoCreate-css-parser/compare/v1.17.1...v1.17.2) (2026-07-11)
 
 
