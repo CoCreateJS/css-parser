@@ -1,3 +1,10 @@
+## [1.18.2](https://github.com/CoCreate-app/CoCreate-css-parser/compare/v1.18.1...v1.18.2) (2026-07-19)
+
+
+### Bug Fixes
+
+* set default branch to main ([86db878](https://github.com/CoCreate-app/CoCreate-css-parser/commit/86db878e6d554409e5e1d8d3b57f434fdc5b747c))
+
 ## [1.18.1](https://github.com/CoCreate-app/CoCreate-css-parser/compare/v1.18.0...v1.18.1) (2026-07-17)
 
 
