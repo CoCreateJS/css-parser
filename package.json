@@ -47,7 +47,6 @@
     "@cocreate/local-storage@1.16.5": true,
     "@cocreate/observer@1.19.0": true,
     "@cocreate/utils@1.42.2": true,
-    "@cocreate/uuid@1.12.4": true,
     "@cocreate/webpack@1.4.3": true
   }
 }
