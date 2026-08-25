@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CoCreate-app/CoCreate-css-parser.git"
+    "url": "git+https://gitlab.com/cocreatejs/CoCreate-css-parser.git"
   },
   "author": "CoCreate LLC",
   "license": "MIT",

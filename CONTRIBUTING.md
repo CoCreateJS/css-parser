@@ -13,7 +13,7 @@ Fork the [project on Github](https://github.com/CoCreate-app/CoCreate-css-parser
 ```
 git clone https://github.com/contributor/CoCreate-css-parser.git
 cd CoCreate-css-parser
-git remote add upstream https://github.com/CoCreate-app/CoCreate-css-parser.git
+git remote add upstream https://gitlab.com/cocreatejs/CoCreate-css-parser.git
 ```
 
 ## Create a Topic Branch
