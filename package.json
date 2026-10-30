@@ -15,6 +15,49 @@
   "publishConfig": {
     "access": "public"
   },
+  "cocreate": {
+    "environment": [
+      "client"
+    ],
+    "interface": {
+      "schemaVersion": 1,
+      "summary": "A simple css-parser component in vanilla javascript. Easily configured using HTML5 data-attributes and/or JavaScript API.",
+      "source": "src/index.js",
+      "declarative": {
+        "selectors": [
+          "[class]",
+          "link[parse], link[save], link[object]",
+          "link"
+        ],
+        "attributes": [
+          {
+            "name": "class"
+          },
+          {
+            "name": "className"
+          },
+          {
+            "name": "component"
+          },
+          {
+            "name": "object"
+          },
+          {
+            "name": "parse"
+          },
+          {
+            "name": "save"
+          }
+        ]
+      },
+      "api": {
+        "exports": [
+          "init",
+          "initElements"
+        ]
+      }
+    }
+  },
   "scripts": {
     "start": "webpack --config webpack.config.js",
     "build": "webpack --mode=production --config webpack.config.js",
