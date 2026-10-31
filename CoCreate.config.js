@@ -12,8 +12,8 @@ module.exports = {
                 "pathname": "/docs/css-parser/index.html",
                 "src": "{{./docs/index.html}}",
                 "host": [
-                    "cocreate.app",
-                    "general.cocreate.app"
+                    "CoCreateJS.com",
+                    "general.CoCreateJS.com"
                 ],
                 "directory": "css-parser",
                 "content-type": "{{content-type}}",
