@@ -112,6 +112,11 @@ function escapeClassName(str) {
     );
 }
 
+/**
+ *
+ * @public
+ * @environment client
+ */
 function init(_linkTag) {
     linkTag = _linkTag;
     if (!linkTag) return;
@@ -173,6 +178,11 @@ function init(_linkTag) {
     observerInit();
 }
 
+/**
+ *
+ * @public
+ * @environment client
+ */
 function initElements(elements) {
     // Process each element with a class attribute
     for (let el of elements) {
@@ -673,3 +683,75 @@ if (autoInitLinkTag) {
 
 // Export functions for external use
 export default { initElements, init };
+
+/**
+ *
+ * @name class
+ * @kind member
+ * @attribute
+ * @environment client
+ */
+
+/**
+ *
+ * @name className
+ * @kind member
+ * @attribute
+ * @environment client
+ */
+
+/**
+ *
+ * @name component
+ * @kind member
+ * @attribute
+ * @environment client
+ */
+
+/**
+ *
+ * @name object
+ * @kind member
+ * @attribute
+ * @environment client
+ */
+
+/**
+ *
+ * @name parse
+ * @kind member
+ * @attribute
+ * @environment client
+ */
+
+/**
+ *
+ * @name save
+ * @kind member
+ * @attribute
+ * @environment client
+ */
+
+/**
+ * A simple css-parser component in vanilla javascript. Easily configured using HTML5 data-attributes and/or JavaScript API.
+ *
+ * @module css-parser
+ * @environment client
+ */
+
+/**
+ * Declarative selectors recognized by this module.
+ *
+ * @name declarative-selectors
+ * @kind member
+ * @selectors
+ * @environment client
+ * @example
+ * ```json
+ * [
+ *   "[class]",
+ *   "link[parse], link[save], link[object]",
+ *   "link"
+ * ]
+ * ```
+ */
