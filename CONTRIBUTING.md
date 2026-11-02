@@ -1,19 +1,19 @@
 # Contributing to CoCreate-css-parser
 
-This project is work of [many contributors](https://github.com/CoCreateJS/CoCreate-css-parser/graphs/contributors).
-You're encouraged to submit [pull requests](https://github.com/CoCreateJS/CoCreate-css-parser/pulls),
-[propose features and discuss issues](https://github.com/CoCreateJS/CoCreate-css-parser/issues).
+This project is work of [many contributors](https://github.com/CoCreateJS/css-parser/graphs/contributors).
+You're encouraged to submit [pull requests](https://github.com/CoCreateJS/css-parser/pulls),
+[propose features and discuss issues](https://github.com/CoCreateJS/css-parser/issues).
 
 In the examples below, substitute your Github username for `contributor` in URLs.
 
 ## Fork the Project
 
-Fork the [project on Github](https://github.com/CoCreateJS/CoCreate-css-parser) and check out your copy.
+Fork the [project on Github](https://github.com/CoCreateJS/css-parser) and check out your copy.
 
 ```
 git clone https://github.com/contributor/CoCreate-css-parser.git
 cd CoCreate-css-parser
-git remote add upstream https://github.com/cocreatejs/CoCreate-css-parser.git
+git remote add upstream https://github.com/CoCreateJS/css-parser.git
 ```
 
 ## Create a Topic Branch
@@ -75,7 +75,7 @@ git push origin my-feature-branch
 
 ## Make a Pull Request
 
-Go to [https://github.com/CoCreateJS/CoCreate-css-parser](https://github.com/CoCreateJS/CoCreate-css-parser) and select your feature branch.
+Go to [https://github.com/CoCreateJS/css-parser](https://github.com/CoCreateJS/css-parser) and select your feature branch.
 Click the 'Pull Request' button and fill out the form. Pull requests are usually reviewed within a few days.
 
 ## Rebase
