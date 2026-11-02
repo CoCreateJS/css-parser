@@ -1,3 +1,27 @@
+# [2.0.0](https://github.com/CoCreateJS/css-parser/compare/v1.18.2...v2.0.0) (2026-11-02)
+
+
+### Bug Fixes
+
+* add Deno specific entries to .gitignore ([f12af99](https://github.com/CoCreateJS/css-parser/commit/f12af9951b4131eb2f48735c1dc07f9bfb1c556a))
+* bump [@cocreate](https://github.com/cocreate) dependencies ([0437324](https://github.com/CoCreateJS/css-parser/commit/04373246512862bcfca273b5fa5057d5249aacb8))
+* bump versions ([2ee28a4](https://github.com/CoCreateJS/css-parser/commit/2ee28a43a0fec33f3638d6ce5abef985b25e4028))
+* bump versions ([bf33f92](https://github.com/CoCreateJS/css-parser/commit/bf33f92067b6ff627f3a2d585cbe335e377489ea))
+* remove trailing slash from node_modules entry in .gitignore ([42e48dd](https://github.com/CoCreateJS/css-parser/commit/42e48ddd8e29c49cfa17019258e109749c71bde9))
+* update git url ([f1501d2](https://github.com/CoCreateJS/css-parser/commit/f1501d2a5babdf7e693abce7358456c7c5e86116))
+* update GitHub Actions to use latest versions and sync package.json description ([c13cd17](https://github.com/CoCreateJS/css-parser/commit/c13cd174f139096c4ce02a0d5ef01271a5601def))
+
+
+### Features
+
+* align CoCreate repository and package naming ([5ca7115](https://github.com/CoCreateJS/css-parser/commit/5ca7115a435057b162508bbf29dc23fb9b4f4eb9))
+* replace uuid import and usage with utils ([cd8adbd](https://github.com/CoCreateJS/css-parser/commit/cd8adbd1eb6ca667eb46d8174aaad729b4579226))
+
+
+### BREAKING CHANGES
+
+* consumers must use the renamed CoCreate package and repository identities; the previous prefixed names are no longer supported.
+
 ## [1.18.2](https://github.com/CoCreateJS/CoCreate-css-parser/compare/v1.18.1...v1.18.2) (2026-07-19)
 
 
