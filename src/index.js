@@ -687,48 +687,42 @@ export default { initElements, init };
 /**
  *
  * @name class
- * @kind member
- * @attribute
+ * @kind attribute
  * @environment client
  */
 
 /**
  *
  * @name className
- * @kind member
- * @attribute
+ * @kind attribute
  * @environment client
  */
 
 /**
  *
  * @name component
- * @kind member
- * @attribute
+ * @kind attribute
  * @environment client
  */
 
 /**
  *
  * @name object
- * @kind member
- * @attribute
+ * @kind attribute
  * @environment client
  */
 
 /**
  *
  * @name parse
- * @kind member
- * @attribute
+ * @kind attribute
  * @environment client
  */
 
 /**
  *
  * @name save
- * @kind member
- * @attribute
+ * @kind attribute
  * @environment client
  */
 
