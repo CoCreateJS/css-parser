@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/CoCreateJS/css-parser/compare/v2.0.0...v2.0.1) (2026-11-05)
+
+
+### Bug Fixes
+
+* upgrade CoCreate dependencies to v2 ([96c9477](https://github.com/CoCreateJS/css-parser/commit/96c9477357fb6604a694fb3ecfcf960508f5b4b3))
+
 # [2.0.0](https://github.com/CoCreateJS/css-parser/compare/v1.18.2...v2.0.0) (2026-11-02)
 
 
