@@ -5,7 +5,6 @@
  ********************************************************************************/
 
 import observer from "@cocreate/observer";
-import localStorage from "@cocreate/local-storage";
 
 /**
  * @typedef {('xxxs'|'xxs'|'xs'|'sm'|'md'|'lg'|'xl'|'xxl')} MediaRangeName
@@ -138,8 +137,8 @@ function init(_linkTag) {
     styleElSheet = styleEl.sheet;
 
     // Check localStorage for parse setting if not explicitly set on the link tag
-    if (parse === null && typeof localStorage !== "undefined") {
-        parse = localStorage.getItem("cssParser");
+    if (parse === null && typeof window !== "undefined" && window.localStorage) {
+        parse = window.localStorage.getItem("cssParser");
     }
 
     // If parse is explicitly false, stop initialization
